@@ -10,7 +10,7 @@ const ACTORS = {
 const MAX_STEP = 0.05;
 
 function Level(plan){
-    //validateLevel(plan)
+    if(!validateLevel(plan)) throw new Error('You need a player and a coin')
     this.width = plan[0].length;
     this.height = plan.length;
     this.status = null;
@@ -65,7 +65,6 @@ Level.prototype.animate = function (step, keys) {
 
 function validateLevel(level){
     console.log(level)
-    for(let i = 0; 1 < level.length; i++){
-       console.log(level[i]) 
-    }
+  
+      level.some(row => row.indexOf('@') !== -1) && level.some(row => row.indexOf('o') !== -1) 
 }
