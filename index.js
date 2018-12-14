@@ -18,6 +18,7 @@ function trackKeys (keyCodes){
     addEventListener('keydown', handler);
     addEventListener('keyup', handler); 
 
+
     return pressedKeys
 }
 
@@ -33,7 +34,8 @@ function runAnimation(frameFunction){
          if(!stop) requestAnimationFrame(frame);
 
           }
-          requestAnimationFrame(frame);        
+          requestAnimationFrame(frame); 
+               
 
 }
 
@@ -53,7 +55,13 @@ function runLevel (level, Display, callback) {
 }
 
 function runGame (level, Display){
-    let levelObject = new Level (GAME_LEVELS) 
+    let levelObject;
+    try{
+        levelObject = new Level(GAME_LEVELS)
+    } catch(error){
+        return alert(error.message)
+    }
+   
     runLevel(levelObject, Display, status => {
         if(status === 'lost') console.log('Hemos perdido');
         else console.log('Has ganado');

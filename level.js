@@ -21,11 +21,11 @@ function Level(plan){
 
     for(let y = 0;  y < this.height; y++){
         let line = plan[y];
-        //console.log(line)
+        console.log(line)
         let gridLine = []
         for(let x = 0; x < this.width; x++ ){
             let character = line[x];
-            //console.log(character);
+            console.log(character);
             let characterType = null;
 
             let Actor = ACTORS[character]
@@ -62,9 +62,24 @@ Level.prototype.animate = function (step, keys) {
 
 
 }
+Level.prototype.obstacleAt = function (position, size) {
+    let xStart = Math.floor(position.x);
+    let xEnd = Math.ceil(position.x + size.x);
+    let yStart = Math.floor(position.y);
+    let yEnd = Math.ceil(position.y + size.y);
+
+    if (xStart < 0 || xEnd > this.width || yStart < 0) return 'wall';
+    if (yEnd > this.height) return 'lava';
+
+    for (let y = yStart; y < yEnd; y++) {
+        for (let x = xStart; x < xEnd; x++) {
+            let fieldType = this.grid[y][x];
+            if (fieldType) return fieldType;
+        }
+    }
+}
 
 function validateLevel(level){
-    console.log(level)
-  
-      level.some(row => row.indexOf('@') !== -1) && level.some(row => row.indexOf('o') !== -1) 
+     
+      return level.some(row => row.indexOf('@') !== -1) && level.some(row => row.indexOf('o') !== -1) 
 }
